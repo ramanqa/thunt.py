@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="row center-align">
+  <div class="col s12">
+      <div class="card amber lighten-4">
+        <div class="card-content">
+          <span class="card-title"><h2>Not a Bot!</h2></span>
+          <p>
+            Are you a bot?
+          </p>
+          <canvas id="notABotCanvas" style="display:none;" height=60 width=110></canvas>
+          <img class='btn black' id="notABotCaptchaImg" width=110 height=60>
+          <div class="row center-align">
+            <div class='col s12 m4 offset-l4'>
+          <form id="notABotForm" action='/r/not_a_bot' method="POST">
+            <div class="input-field">
+              <input placeholder="Captcha Text" id="notABotCaptchaResponse" type="text" class="validate">
+            </div>
+            <input type="hidden" id="notABotCaptchaWord" />
+          </form>
+          <button class="btn" id="notABotCaptchaSubmit" href="#">Submit Captcha</a>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<script src="/j/not_a_bot.js">
+</script>
+</script>
+{% endblock %}

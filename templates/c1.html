@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="row center-align">
+  <div class="col s12">
+      <div class="card amber lighten-4">
+        <div class="card-content">
+          <span class="card-title"><h2>Random access</h2></span>
+          <p style="font-size: 1.5em;">
+            Click the correct proceed button below to go to next level.
+          </p>
+        </div>
+        <div class="card-action">
+          <form id="c1form" method="POST" action="/r/c1">
+          </form>
+          <button id="c1submitbutton1" class="btn">Proceed</button>
+          <button id="c1submitbutton2" class="btn">Proceed</button>
+          <button id="c1submitbutton3" class="btn">Proceed</button>
+          <button id="c1submitbutton4" class="btn">Proceed</button>
+          <button id="c1submitbutton5" class="btn">Proceed</button>
+        </div>
+      </div>
+    </div>
+</div>
+<script>
+  function c1submit(){
+      document.getElementById("c1form").submit();
+  }
+  document.getElementById("c1submitbutton"+Math.floor((Math.random()*5)+1)).onclick = c1submit;
+</script>
+{% endblock %}
