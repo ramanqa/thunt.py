@@ -11,15 +11,15 @@
           <canvas id="notABotCanvas" style="display:none;" height=60 width=110></canvas>
           <img class='btn black' id="notABotCaptchaImg" width=110 height=60>
           <div class="row center-align">
-            <div class='col s12 m4 offset-l4'>
-          <form id="notABotForm" action='/r/not_a_bot' method="POST">
-            <div class="input-field">
-              <input placeholder="Captcha Text" id="notABotCaptchaResponse" type="text" class="validate">
+            <div class='col s12 m6 offset-m3 l4 offset-l4'>
+              <form id="notABotForm" action='/r/not_a_bot' method="POST">
+                <div class="input-field">
+                  <input placeholder="Captcha Text" id="notABotCaptchaResponse" name="notABotCaptchaResponse" type="text" class="validate">
+                </div>
+                <input type="hidden" id="notABotCaptchaWord" name="notABotCaptchaWord" />
+              </form>
+              <button class="btn" id="notABotCaptchaSubmit" href="#">Submit Captcha</a>
             </div>
-            <input type="hidden" id="notABotCaptchaWord" />
-          </form>
-          <button class="btn" id="notABotCaptchaSubmit" href="#">Submit Captcha</a>
-          </div>
           </div>
         </div>
       </div>

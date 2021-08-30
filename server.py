@@ -38,9 +38,13 @@ def responder(cid):
         error_response.status_code = 400
         return error_response
     # validate challenge response
+    if(globals()["response_" + cid]()):
     # if response success
-    return launch_response(next_cid())
-    # else 
+        return launch_response(next_cid())
+        
+    error_response = make_response(render_template('validation-error.html', checkpoint_page_id=cid_in_request))
+    error_response.status_code = 400
+    return error_response
     # error page
 
 @app.route("/j/not_a_bot.js")
@@ -89,8 +93,15 @@ def next_cid():
 
 route = [
         "c1",
-        "not_a_bot"
+        "not_a_bot",
+        "a_video"
         ]
+
+def response_c1():
+    return True
+
+def response_not_a_bot():
+    return request.form["notABotCaptchaResponse"] == request.form["notABotCaptchaWord"][::-1]
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")

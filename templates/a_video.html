@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="row center-align">
+  <div class="col s12">
+      <div class="card amber lighten-4">
+        <div class="card-content">
+          <span class="card-title"><h2>A Video Player</h2></span>
+          <p>
+            Are you a bot?
+          </p>
+              <form id="aVideoForm" action='/r/a_video' method="POST">
+                <input type="hidden" id="aVideoStatus" name="aVideoStatus" />
+              </form>
+              <button class="btn" id="aVideoSubmit" href="#">Proceed</a>
+        </div>
+      </div>
+    </div>
+</div>
+<script>
+</script>
+{% endblock %}

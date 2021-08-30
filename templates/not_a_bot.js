@@ -19,7 +19,7 @@ $(document).ready(function(){
 });
 
 document.getElementById("notABotCaptchaSubmit").onclick= function() {
-    document.getElementById("notABotCaptchaWord").value="{{word}}";
-  document.getElementById("notABotForm").submit();
+    document.getElementById("notABotCaptchaWord").value="{{word[::-1]}}"
+    document.getElementById("notABotForm").submit();
 }
 
