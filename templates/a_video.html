@@ -5,9 +5,14 @@
       <div class="card amber lighten-4">
         <div class="card-content">
           <span class="card-title"><h2>A Video Player</h2></span>
-          <p>
-            Are you a bot?
-          </p>
+          <ul>
+            <ol>Mute the video </ol>
+            <ol>Play video </ol>
+            <ol>Wait for Norm to start his talk </ol>
+            <ol>Click proceed</ol>
+          </ul>
+          <br />
+          <div id="aVideoPlayer"></div>
               <form id="aVideoForm" action='/r/a_video' method="POST">
                 <input type="hidden" id="aVideoStatus" name="aVideoStatus" />
               </form>
@@ -17,5 +22,31 @@
     </div>
 </div>
 <script>
+  var tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+  var aVideoPlayer;
+    function onYouTubeIframeAPIReady() {
+      aVideoPlayer = new YT.Player('aVideoPlayer', {
+          height: '390',
+          width: '640',
+          videoId: 'ePC7HV4Umx8',
+          playerVars: {
+            'playsinline': 1
+          },
+          events: {
+            //'onReady': onPlayerReady,
+            //'onStateChange': onPlayerStateChange
+          }
+      });
+    }
+
+  document.getElementById("aVideoSubmit").onclick = function(){
+      document.getElementById("aVideoStatus").value = ""+aVideoPlayer.isMuted() + "," + aVideoPlayer.getCurrentTime() + "," + aVideoPlayer.getPlayerState();
+      document.getElementById("aVideoForm").submit();
+    }
+
 </script>
 {% endblock %}

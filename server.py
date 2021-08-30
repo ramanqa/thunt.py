@@ -4,8 +4,18 @@ import uuid
 import time
 import random
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+
 private_key = "Q@!NF0T3CH"
+
+@app.after_request
+def add_header(r):
+    r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    r.headers["Pragma"] = "no-cache"
+    r.headers["Expires"] = "0"
+    r.headers['Cache-Control'] = 'public, max-age=0'
+    return r
 
 @app.route("/")
 def hello_world():
@@ -23,6 +33,7 @@ def landing(cid):
 
 @app.route("/start")
 def start():
+    print("HERE")
     return launch_response("c1")
 
 @app.route("/l/<cid>")
@@ -80,6 +91,7 @@ def launch_response(cid):
     res = make_response()
     public_key = str(uuid.uuid4())
     zs = signature(cid, str(round(time.time())), public_key)
+    print(zs)
     res.set_cookie("_zZs", value=zs)
     # redirect to target page
     res.headers['location'] = "/c/" + cid
@@ -94,7 +106,8 @@ def next_cid():
 route = [
         "c1",
         "not_a_bot",
-        "a_video"
+        "a_video",
+        "treasure"
         ]
 
 def response_c1():
@@ -102,6 +115,10 @@ def response_c1():
 
 def response_not_a_bot():
     return request.form["notABotCaptchaResponse"] == request.form["notABotCaptchaWord"][::-1]
+
+def response_a_video():
+    print(request.form)
+    return True
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")
