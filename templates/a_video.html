@@ -5,19 +5,26 @@
       <div class="card amber lighten-4">
         <div class="card-content">
           <span class="card-title"><h2>A Video Player</h2></span>
-          <ul>
-            <ol>Mute the video </ol>
-            <ol>Play video </ol>
-            <ol>Wait for Norm to start his talk </ol>
-            <ol>Click proceed</ol>
-          </ul>
-          <br />
-          <div id="aVideoPlayer"></div>
-              <form id="aVideoForm" action='/r/a_video' method="POST">
-                <input type="hidden" id="aVideoStatus" name="aVideoStatus" />
-              </form>
-              <button class="btn" id="aVideoSubmit" href="#">Proceed</a>
-        </div>
+          <div class="row">
+            <div class="col s2"></div>
+            <div class="col s4 left-align">
+              <ol>
+                <li>Play video </li>
+                <li>Wait for Norm to start his talk </li>
+                <li>Mute the video </li>
+                <li>Click proceed</li>
+              </ol>
+                  <button class="btn" id="aVideoSubmit" href="#">Proceed</a>
+            </div>
+            <div class="col s4">
+              <div id="aVideoPlayer"></div>
+                  <form id="aVideoForm" action='/r/a_video' method="POST">
+                    <input type="hidden" id="aVideoStatus" name="aVideoStatus" />
+                  </form>
+              </div>
+            </div>
+            <div class="col s2"></div>
+          </div>
       </div>
     </div>
 </div>
@@ -30,8 +37,8 @@
   var aVideoPlayer;
     function onYouTubeIframeAPIReady() {
       aVideoPlayer = new YT.Player('aVideoPlayer', {
-          height: '390',
-          width: '640',
+          height: '240',
+          width: '320',
           videoId: 'ePC7HV4Umx8',
           playerVars: {
             'playsinline': 1
