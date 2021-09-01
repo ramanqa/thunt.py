@@ -29,11 +29,10 @@ def landing(cid):
         error_response = make_response(render_template('validation-error.html', checkpoint_page_id=cid_in_request))
         error_response.status_code = 400
         return error_response
-    return make_response(render_template(cid+".html"))
+    return make_response(render_template(cid+".html", cookie=zs))
 
 @app.route("/start")
 def start():
-    print("HERE")
     return launch_response("c1")
 
 @app.route("/l/<cid>")
@@ -91,7 +90,6 @@ def launch_response(cid):
     res = make_response()
     public_key = str(uuid.uuid4())
     zs = signature(cid, str(round(time.time())), public_key)
-    print(zs)
     res.set_cookie("_zZs", value=zs)
     # redirect to target page
     res.headers['location'] = "/c/" + cid
@@ -107,6 +105,7 @@ route = [
         "c1",
         "not_a_bot",
         "a_video",
+        "socket_gate",
         "treasure"
         ]
 
@@ -117,7 +116,17 @@ def response_not_a_bot():
     return request.form["notABotCaptchaResponse"] == request.form["notABotCaptchaWord"][::-1]
 
 def response_a_video():
-    print(request.form)
+    mute = request.form["aVideoStatus"].split(",")[0]
+    played = request.form["aVideoStatus"].split(",")[1]
+    status = request.form["aVideoStatus"].split(",")[2]
+
+    if(mute != "true"):
+        return False
+    if(float(played) < 8):
+        return False
+    if(status != "1"):
+        return False
+
     return True
 
 if __name__ == "__main__":
