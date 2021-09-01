@@ -6,12 +6,20 @@
         <div class="card-content">
           <span class="card-title"><h2>Socket Gate</h2></span>
           <div class="row">
-            <div class="col s6 m4 offset-m4 l4 offset-l4">
+            <div class="col s12 left-align">
               <ol>
-                <li>Connect to socket</li>
-                <li>Raise request for access token by sending message : token {{cookie}}</li>
+                <li>Connect to socket: ws://[domain]:5001</li>
+                <li>Generate access token by sending message : {{cookie}}</li>
                 <li>Submit recieved token in the form below to proceed</li>
               </ol>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s4 m4 offset-m4 l4 offset-l4">
+              <form id="socketGate" name="socketGate" action="/r/socket_gate" method="POST">
+                <input type="text" id="socketGateMessage" name="socketGateMessage"></input>
+                <button class="btn">Submit</button>
+              </form>
             </div>
           </div>
         </div>

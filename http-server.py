@@ -3,11 +3,14 @@ import hashlib
 import uuid
 import time
 import random
+from cryptography.fernet import Fernet
 
 app = Flask(__name__, static_folder='static')
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 private_key = "Q@!NF0T3CH"
+enkey = "Rq6jreLf2EmkllCuzg1DNC7FLnyytt6Q2f4tweo3sDo="
+fernet = Fernet(enkey)
 
 @app.after_request
 def add_header(r):
@@ -65,6 +68,7 @@ def not_a_bot_js():
     response.headers['Content-Type'] = 'text/javascript; charset=utf-8'
     return response
 
+# challenge handlers
 def validate_request(cid):
     zs = request.cookies.get("_zZs")
     cid_in_request = zs.split(".")[2]
@@ -119,15 +123,20 @@ def response_a_video():
     mute = request.form["aVideoStatus"].split(",")[0]
     played = request.form["aVideoStatus"].split(",")[1]
     status = request.form["aVideoStatus"].split(",")[2]
-
     if(mute != "true"):
         return False
     if(float(played) < 8):
         return False
     if(status != "1"):
         return False
-
     return True
+
+def response_socket_gate():
+    zs = request.cookies.get("_zZs")
+    ezs = fernet.decrypt(request.form["socketGateMessage"].encode()).decode()
+    if(zs == ezs):
+        return True
+    return False
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")
