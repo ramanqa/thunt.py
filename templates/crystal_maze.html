@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="row center-align">
+  <div class="col s12">
+      <div class="card amber lighten-4">
+        <div class="card-content">
+          <span class="card-title"><h2>Socket Gate</h2></span>
+          <div class="row">
+            <div class="col s6 center-align">
+              <div class="row">
+                <div class="col s12 center-align">
+                  <a class="btn"><i class="large material-icons">arrow_upward</i></a>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col s12 center-align">
+                  <a class="btn"><i class="large material-icons">arrow_back</i></a>
+                  <a class="btn"><i class="large material-icons">arrow_downward</i></a>
+                  <a class="btn"><i class="large material-icons">arrow_forward</i></a>
+                </div>
+              </div>
+            </div>
+            <div class="col s6 center-align">
+              <table id="maze">
+              </table>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s4 m4 offset-m4 l4 offset-l4">
+              <form id="maze" name="maze" action="/r/crystal_maze" method="POST">
+                <input type="text" id="crystalMazeStatus" name="crystalMazeStatus"></input>
+                <button class="btn">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<script>
+  var data = [
+        [1,1,1,1,1,1,1,1,1,1],
+        [3,0,1,0,1,1,1,1,0,1],
+        [1,0,1,0,0,0,0,0,0,1],
+        [1,0,0,0,1,1,0,1,1,1],
+        [1,1,1,1,1,0,0,1,1,1],
+        [1,1,0,0,0,0,1,1,0,0],
+        [1,0,0,1,1,1,1,0,0,1],
+        [1,0,1,1,1,1,1,0,1,1],
+        [1,0,0,0,0,0,0,0,0,1],
+        [1,1,1,1,1,1,1,1,1,1]
+      ];
+
+  $(document).ready(function(){
+      fillMaze(data);
+    });
+
+  function fillMaze(data){
+          y = 0;
+          data.forEach(function(row){
+              tr = "<tr>";
+              x = 0;
+              row.forEach(function(cell){
+                  tr += "<td class='x"+x+" y"+y+" ";
+                  if(cell == 0){
+                      tr += "blue-grey";
+                  }else if(cell == 1){
+                      tr += "black";
+                  }else{
+                      tr += "deep-purple";
+                  }
+                  tr += "'></td>";
+                  x+=1;
+                });
+                tr += "</tr>";
+                $("#maze").append(tr);
+                y+=1;
+            });
+    }
+</script>
+{% endblock %}

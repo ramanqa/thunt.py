@@ -110,6 +110,7 @@ route = [
         "not_a_bot",
         "a_video",
         "socket_gate",
+        "crystal_maze",
         "treasure"
         ]
 
