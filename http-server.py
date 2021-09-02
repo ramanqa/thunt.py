@@ -128,7 +128,7 @@ def response_a_video():
         return False
     if(float(played) < 8):
         return False
-    if(statu != "1"):
+    if(status != "1"):
         return False
     return True
 
