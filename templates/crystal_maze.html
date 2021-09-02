@@ -22,10 +22,10 @@
               </div>
               <div class="row">
                 <div class="col s12 center-align">
-                  <form id="mazeForm" name="mazeForm" action="/r/crystal_maze" method="POST">
+                  <form id="crystalMazeForm" name="crystalMazeForm" action="/r/crystal_maze" method="POST">
                     <input type="hidden" id="crystalMazePath" name="crystalMazePath"></input>
-                    <button class="btn">Submit</button>
                   </form>
+                  <button id="crystalMazeFormSubmit" class="btn">Submit</button>
                 </div>
               </div>
             </div>
@@ -54,6 +54,7 @@
         [0,1,1,1,1,1,1,1,1,1,1,0],
         [0,0,0,0,0,0,0,0,0,0,0,0]
       ];
+  var direction = "";
 
   $(document).ready(function(){
       fillMaze(data);
@@ -93,6 +94,7 @@
           $(currentElm).removeClass("deep-purple");
           $(currentElm).addClass("blue-grey");
         }
+      direction += "r";
     }
   function left(){
       currentElm = $(".deep-purple")[0];
@@ -103,6 +105,7 @@
           $(currentElm).removeClass("deep-purple");
           $(currentElm).addClass("blue-grey");
         }
+      direction += "l";
     }
   function up(){
       currentElm = $(".deep-purple")[0];
@@ -113,6 +116,7 @@
           $(currentElm).removeClass("deep-purple");
           $(currentElm).addClass("blue-grey");
         }
+      direction += "u";
     }
   function down(){
       currentElm = $(".deep-purple")[0];
@@ -123,6 +127,7 @@
           $(currentElm).removeClass("deep-purple");
           $(currentElm).addClass("blue-grey");
         }
+      direction += "d";
     }
   function currentPos(){
       var classes = $(".deep-purple").attr("class").split(/\s+/);
@@ -136,5 +141,12 @@
   function currentPosY(){
       return currentPos()[1];
   }
+
+  document.getElementById("crystalMazeFormSubmit").onclick = function(){
+      document.getElementById("crystalMazePath").value = direction;
+      if($(".x11.y6").hasClass("deep-purple")){
+          document.getElementById("crystalMazeForm").submit();
+        }
+    }
 </script>
 {% endblock %}

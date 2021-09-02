@@ -128,7 +128,7 @@ def response_a_video():
         return False
     if(float(played) < 8):
         return False
-    if(status != "1"):
+    if(statu != "1"):
         return False
     return True
 
@@ -138,6 +138,16 @@ def response_socket_gate():
     if(zs == ezs):
         return True
     return False
+
+def response_crystal_maze():
+    direction = request.form["crystalMazePath"]
+    if not direction.startswith("r"):
+        return False
+    if not direction.endswith("r"):
+        return False
+    if(len(direction)<33):
+        return False
+    return True
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")
