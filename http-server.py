@@ -21,8 +21,8 @@ def add_header(r):
     return r
 
 @app.route("/")
-def hello_world():
-    return "ok"
+def home():
+    return render_template('landing.html');
 
 @app.route("/c/<cid>")
 def landing(cid):
