@@ -68,12 +68,6 @@ def not_a_bot_js():
     response.headers['Content-Type'] = 'text/javascript; charset=utf-8'
     return response
 
-
-@app.route("/maps")
-def maps():
-    return render_template('maps.html')
-
-
 # challenge handlers
 def validate_request(cid):
     zs = request.cookies.get("_zZs")
@@ -112,8 +106,8 @@ def next_cid():
 
 route = [
         "c1",
-        "not_a_bot",
         "maps",
+        "not_a_bot",
         "a_video",
         "socket_gate",
         "crystal_maze",
@@ -123,6 +117,19 @@ route = [
 def response_c1():
     return True
 
+def response_maps():
+    dot_coords = [float(num_string) for num_string in request.form["mapsChallengePath"].split(",")]
+    
+    india_coords = [515, 80, 478, 116] #[coords arranged as top right then bottom left]
+    us_coords = [292,59,202,89]
+    
+    isIndia = (dot_coords[0] > india_coords[2] and dot_coords[0] < india_coords[0] \
+            and dot_coords[1] < india_coords[3] and dot_coords[1] > india_coords[1])
+
+    isUSA =  (dot_coords[0] > us_coords[2] and dot_coords[0] < us_coords[0] \
+            and dot_coords[1] < us_coords[3] and dot_coords[1] > us_coords[1])
+    return (isIndia or isUSA)
+    
 def response_not_a_bot():
     return request.form["notABotCaptchaResponse"] == request.form["notABotCaptchaWord"][::-1]
 

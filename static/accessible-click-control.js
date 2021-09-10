@@ -1,11 +1,14 @@
-var map, navigationControl, queryControl; 
+var map, navigationControl, queryControl;
 
-function init(){
-    map = new OpenLayers.Map('map', {controls: []});
+function init() {
+    map = new OpenLayers.Map('map', {
+        controls: []
+    });
     var layer = new OpenLayers.Layer.WMS(
         "OpenLayers WMS",
-        "http://vmap0.tiles.osgeo.org/wms/vmap0",
-        {layers: 'basic'}
+        "http://vmap0.tiles.osgeo.org/wms/vmap0", {
+            layers: 'basic'
+        }
     );
     map.addLayers([layer]);
 
@@ -13,7 +16,7 @@ function init(){
         observeElement: 'map'
     });
     map.addControl(navigationControl);
-    
+
     queryControl = new OpenLayers.Control.KeyboardClick({
         observeElement: 'map'
     });
@@ -62,17 +65,19 @@ OpenLayers.Control.KeyboardClick = OpenLayers.Class(OpenLayers.Control, {
     },
 
     onClick: function(geometry) {
-        alert("You clicked near " + geometry.x + " N, " +
-                                    geometry.y + " E");
+        // alert("You clicked near " + geometry.x + " N, " +
+        //     geometry.y + " E");
+        console.log(geometry)
+        document.getElementById("mapsChallengePath").value = geometry
     },
 
     activate: function() {
-        if(!OpenLayers.Control.prototype.activate.apply(this, arguments)) {
+        if (!OpenLayers.Control.prototype.activate.apply(this, arguments)) {
             return false;
         }
         // deactivate any KeyboardDefaults control
         var keyboardDefaults = this.map.getControlsByClass(
-                'OpenLayers.Control.KeyboardDefaults')[0];
+            'OpenLayers.Control.KeyboardDefaults')[0];
         if (keyboardDefaults) {
             keyboardDefaults.deactivate();
         }
@@ -80,12 +85,12 @@ OpenLayers.Control.KeyboardClick = OpenLayers.Class(OpenLayers.Control, {
     },
 
     deactivate: function() {
-        if(!OpenLayers.Control.prototype.deactivate.apply(this, arguments)) {
+        if (!OpenLayers.Control.prototype.deactivate.apply(this, arguments)) {
             return false;
         }
         // reactivate any KeyboardDefaults control
         var keyboardDefaults = this.map.getControlsByClass(
-                'OpenLayers.Control.KeyboardDefaults')[0];
+            'OpenLayers.Control.KeyboardDefaults')[0];
         if (keyboardDefaults) {
             keyboardDefaults.activate();
         }
@@ -100,7 +105,7 @@ OpenLayers.Control.KeyboardClick = OpenLayers.Class(OpenLayers.Control, {
  * using the arrow keys of the keyboard.
  */
 OpenLayers.Handler.KeyboardPoint = OpenLayers.Class(OpenLayers.Handler, {
-    
+
     KEY_EVENTS: ["keydown"],
 
 
@@ -113,17 +118,17 @@ OpenLayers.Handler.KeyboardPoint = OpenLayers.Class(OpenLayers.Handler, {
     },
 
     activate: function() {
-        if(!OpenLayers.Handler.prototype.activate.apply(this, arguments)) {
+        if (!OpenLayers.Handler.prototype.activate.apply(this, arguments)) {
             return false;
         }
         this.layer = new OpenLayers.Layer.Vector(this.CLASS_NAME);
         this.map.addLayer(this.layer);
         this.observeElement = this.observeElement || document;
-        for (var i=0, len=this.KEY_EVENTS.length; i<len; i++) {
+        for (var i = 0, len = this.KEY_EVENTS.length; i < len; i++) {
             OpenLayers.Event.observe(
                 this.observeElement, this.KEY_EVENTS[i], this.eventListener);
         }
-        if(!this.point) {
+        if (!this.point) {
             this.createFeature();
         }
         return true;
@@ -133,7 +138,7 @@ OpenLayers.Handler.KeyboardPoint = OpenLayers.Class(OpenLayers.Handler, {
         if (!OpenLayers.Handler.prototype.deactivate.apply(this, arguments)) {
             return false;
         }
-        for (var i=0, len=this.KEY_EVENTS.length; i<len; i++) {
+        for (var i = 0, len = this.KEY_EVENTS.length; i < len; i++) {
             OpenLayers.Event.stopObserving(
                 this.observeElement, this.KEY_EVENTS[i], this.eventListener);
         }
@@ -142,12 +147,12 @@ OpenLayers.Handler.KeyboardPoint = OpenLayers.Class(OpenLayers.Handler, {
         return true;
     },
 
-    handleKeyEvent: function (evt) {
-        switch(evt.keyCode) {
+    handleKeyEvent: function(evt) {
+        switch (evt.keyCode) {
             case OpenLayers.Event.KEY_LEFT:
                 this.modifyFeature(-3, 0);
                 break;
-            case OpenLayers.Event.KEY_RIGHT: 
+            case OpenLayers.Event.KEY_RIGHT:
                 this.modifyFeature(3, 0);
                 break;
             case OpenLayers.Event.KEY_UP:
@@ -166,7 +171,7 @@ OpenLayers.Handler.KeyboardPoint = OpenLayers.Class(OpenLayers.Handler, {
     },
 
     modifyFeature: function(lon, lat) {
-        if(!this.point) {
+        if (!this.point) {
             this.createFeature();
         }
         var resolution = this.map.getResolution();
@@ -185,7 +190,9 @@ OpenLayers.Handler.KeyboardPoint = OpenLayers.Class(OpenLayers.Handler, {
         this.point = new OpenLayers.Feature.Vector(geometry);
         this.callback("create", [this.point.geometry, this.point]);
         this.point.geometry.clearBounds();
-        this.layer.addFeatures([this.point], {silent: true});
+        this.layer.addFeatures([this.point], {
+            silent: true
+        });
     },
 
     destroyFeature: function() {
