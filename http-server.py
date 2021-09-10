@@ -22,7 +22,7 @@ def add_header(r):
 
 @app.route("/")
 def home():
-    return render_template('landing.html');
+    return render_template('landing.html')
 
 @app.route("/c/<cid>")
 def landing(cid):
@@ -73,7 +73,6 @@ def validate_request(cid):
     zs = request.cookies.get("_zZs")
     cid_in_request = zs.split(".")[2]
     timestamp_in_request = zs.split(".")[1]
-    current_timestamp = round(time.time())
     public_key_in_request = zs.split(".")[3]
     if(cid != cid_in_request):
         return False
@@ -107,6 +106,7 @@ def next_cid():
 
 route = [
         "c1",
+        "maps",
         "not_a_bot",
         "a_video",
         "socket_gate",
@@ -117,6 +117,19 @@ route = [
 def response_c1():
     return True
 
+def response_maps():
+    dot_coords = [float(num_string) for num_string in request.form["mapsChallengePath"].split(",")]
+    
+    india_coords = [515, 80, 478, 116] #[coords arranged as top right then bottom left]
+    us_coords = [292,59,202,89]
+    
+    isIndia = (dot_coords[0] > india_coords[2] and dot_coords[0] < india_coords[0] \
+            and dot_coords[1] < india_coords[3] and dot_coords[1] > india_coords[1])
+
+    isUSA =  (dot_coords[0] > us_coords[2] and dot_coords[0] < us_coords[0] \
+            and dot_coords[1] < us_coords[3] and dot_coords[1] > us_coords[1])
+    return (isIndia or isUSA)
+    
 def response_not_a_bot():
     return request.form["notABotCaptchaResponse"] == request.form["notABotCaptchaWord"][::-1]
 
