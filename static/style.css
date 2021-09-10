@@ -173,8 +173,9 @@ h6 {
   * Map Examples Specific
   */
 .smallmap {
-    width: 100%;
+    width: 513px;
     height: 257px;
+    float: right;
 }
 
 #tags {

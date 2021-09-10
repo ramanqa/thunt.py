@@ -120,8 +120,8 @@ def response_c1():
 def response_maps():
     dot_coords = [float(num_string) for num_string in request.form["mapsChallengePath"].split(",")]
     
-    india_coords = [515, 80, 478, 116] #[coords arranged as top right then bottom left]
-    us_coords = [292,59,202,89]
+    india_coords = [388, 80, 355, 116] #[coords arranged as top right then bottom left]
+    us_coords = [164, 58, 79, 93]
     
     isIndia = (dot_coords[0] > india_coords[2] and dot_coords[0] < india_coords[0] \
             and dot_coords[1] < india_coords[3] and dot_coords[1] > india_coords[1])
