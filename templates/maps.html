@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{%block headscripts %}
+<link rel="stylesheet" href="{{ url_for('static', filename='layers_style.css') }}" type="text/css">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css">
+<script src="{{ url_for('static', filename='OpenLayers.js') }}"></script>
+<script src="{{ url_for('static', filename='accessible-click-control.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="card maincard">
+    <div class="card-content">
+        <div id="map" class="smallmap" tabindex="0"></div>
+        <p id="desc">
+            Press 'i' to select map and move the yellow marker on INDIA or USA to proceed
+        </p>
+        <div class="col s12 center-align">
+            <form id="crystalMazeForm" name="crystalMazeForm" action="/r/crystal_maze" method="POST">
+                <input type="hidden" id="crystalMazePath" name="crystalMazePath"></input>
+            </form>
+            <button id="mapsChallengeSubmit" class="btn deep-orange darken-4">Proceed</button>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        init();
+    });
+    document.getElementById("mapsChallengeSubmit").onclick = function() {
+        window.alert('DONE')
+    }
+</script>
+{% endblock %}

@@ -22,7 +22,7 @@ def add_header(r):
 
 @app.route("/")
 def home():
-    return render_template('landing.html');
+    return render_template('landing.html')
 
 @app.route("/c/<cid>")
 def landing(cid):
@@ -68,12 +68,17 @@ def not_a_bot_js():
     response.headers['Content-Type'] = 'text/javascript; charset=utf-8'
     return response
 
+
+@app.route("/maps")
+def maps():
+    return render_template('maps.html')
+
+
 # challenge handlers
 def validate_request(cid):
     zs = request.cookies.get("_zZs")
     cid_in_request = zs.split(".")[2]
     timestamp_in_request = zs.split(".")[1]
-    current_timestamp = round(time.time())
     public_key_in_request = zs.split(".")[3]
     if(cid != cid_in_request):
         return False
@@ -108,6 +113,7 @@ def next_cid():
 route = [
         "c1",
         "not_a_bot",
+        "maps",
         "a_video",
         "socket_gate",
         "crystal_maze",
