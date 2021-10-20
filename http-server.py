@@ -1,4 +1,4 @@
-from flask import Flask, render_template, make_response, request
+from flask import Flask, render_template, make_response, request, send_from_directory
 import hashlib
 import uuid
 import time
@@ -22,7 +22,7 @@ def add_header(r):
 
 @app.route("/")
 def splash():
-    return ""
+    return send_from_directory("static", "index.html")
 
 @app.route("/intro")
 def home():
