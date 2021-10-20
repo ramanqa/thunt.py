@@ -22,17 +22,18 @@ def add_header(r):
 
 @app.route("/")
 def home():
-    return render_template('landing.html')
+    return render_template('landing.html', bct={})
 
 @app.route("/c/<cid>")
 def landing(cid):
     zs = request.cookies.get("_zZs")
     cid_in_request = zs.split(".")[2]
+    b = bct(cid)
     if not validate_request(cid):
-        error_response = make_response(render_template('validation-error.html', checkpoint_page_id=cid_in_request))
+        error_response = make_response(render_template('validation-error.html', checkpoint_page_id=cid_in_request, bct={}))
         error_response.status_code = 400
         return error_response
-    return make_response(render_template(cid+".html", cookie=zs))
+    return make_response(render_template(cid+".html", cookie=zs, bct=b))
 
 @app.route("/start")
 def start():
@@ -47,7 +48,7 @@ def responder(cid):
     zs = request.cookies.get("_zZs")
     cid_in_request = zs.split(".")[2]
     if not validate_request(cid):
-        error_response = make_response(render_template('validation-error.html', checkpoint_page_id=cid_in_request))
+        error_response = make_response(render_template('validation-error.html', checkpoint_page_id=cid_in_request, bct={}))
         error_response.status_code = 400
         return error_response
     # validate challenge response
@@ -55,7 +56,7 @@ def responder(cid):
     # if response success
         return launch_response(next_cid())
         
-    error_response = make_response(render_template('validation-error.html', checkpoint_page_id=cid_in_request))
+    error_response = make_response(render_template('validation-error.html', checkpoint_page_id=cid_in_request, bct={}))
     error_response.status_code = 400
     return error_response
     # error page
@@ -67,6 +68,9 @@ def not_a_bot_js():
     response = make_response(render_template('not_a_bot.js', word=word))
     response.headers['Content-Type'] = 'text/javascript; charset=utf-8'
     return response
+
+def bct(cid):
+    return {"map": len(route), "curr": route.index(cid)}
 
 # challenge handlers
 def validate_request(cid):
