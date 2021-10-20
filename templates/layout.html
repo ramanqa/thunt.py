@@ -118,14 +118,15 @@
               var j = 0;
               for(i = 0; i < bct.map; i++){
                 if(j < bct.curr){
-                    $(".bct").append("<div class='col bct-box green'><i class='tiny material-icons'>check_box</i></div>");
+                    $(".bct").append("<span class='btn btn-small green black-text'><i class='tiny material-icons'>check_box</i></span>");
                 }else if(j == bct.curr){
-                    $(".bct").append("<div class='col bct-box light-blue'><i class='tiny material-icons'>center_focus_weak</i></div>");
+                    $(".bct").append("<span class='btn btn-small light-blue black-text'><i class='tiny material-icons'>center_focus_weak</i></span>");
                 }else{
-                    $(".bct").append("<div class='col bct-box yellow lighten-4'><i class='tiny material-icons'>crop_free</i></div>");
+                    $(".bct").append("<span class='btn btn-small yellow lighten-4 black-text'><i class='tiny material-icons'>crop_free</i></span>");
                 }
                 j++;
               }
+              $(".bct").append("<span class='btn btn-small amber lighten-2 black-text'><i class='tiny material-icons'>account_balance</i></span>");
             </script>
 </body>
 

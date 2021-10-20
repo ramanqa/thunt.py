@@ -21,6 +21,10 @@ def add_header(r):
     return r
 
 @app.route("/")
+def splash():
+    return ""
+
+@app.route("/intro")
 def home():
     return render_template('landing.html', bct={})
 
