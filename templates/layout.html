@@ -20,17 +20,19 @@
           body {min-height:100%}
         **/
         body {
-            font-family: 'Pacifico', 'Lobster', cursive;
-            font-size: 1.2em;
+          /**
+              font-family: 'Pacifico', 'Lobster', cursive;
+          **/
+            font-size: 1.1em;
         }
 
         body p,
         body li {
-            font-size: 1.2em;
+            font-size: 1.1em;
         }
 
         .maincard {
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: rgba(255, 255, 255, 0.6);
         }
 
         .errorcard {
@@ -87,11 +89,14 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-<body class="teal accent-3" style="background-image: url('/static/pbg.jpg'); background-repeat: no-repeat; background-size: 100% 100%;">
+<body class="teal lighten-4" style="background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url('/static/pbg.jpg'); background-repeat: no-repeat; background-size: 100% 100%;">
     <header class="">
-        <h3 class="light-blue-text text-darken-4" style="margin: 0px;">Qualithon - Treasure Hunt</h3>
+        <!--
+          <h3 class="light-blue-text text-darken-4" style="margin: 0px;">Qualithon - Treasure Hunt</h3>
+        -->
+        <img src="/static/qualithon-logo.png" style="height: 60px" />
     </header>
-    <div style="height: 30px;">
+    <div class="bctrow" style="height: 30px;">
       <div class="bct row center-align" style="margin: 0px; float: right;">
         <div class="col" style="font-size: 0.8em;">Progress</div>
       </div>
@@ -99,9 +104,11 @@
     <div class="container blue-grey-text text-darken-3" style="min-height: 400px;">
         {% block content %}{% endblock %}
     </div>
-    <footer class="teal accent-3 light-blue-text text-darken-4 right-align">
+    <footer class="light-blue-text text-darken-4 right-align">
         <a style="font-size: 1.2em;" class="light-blue-text text-darken-4" href="https://teams.microsoft.com/l/team/19%3a8e96ee180dae46e2aa7ae6f5958ad658%40thread.skype/conversations?groupId=b877faf9-765d-4e74-affa-bb80557cbf34&tenantId=6be5b754-cbd2-4393-9dc2-d7050d353c69">Test
             Automation QTribe @ Teams</a>
+        <br />
+        <img src="/static/QT-Logo-clear.png" style="height: 30px" />
         <footer>
 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
@@ -116,7 +123,7 @@
                         <script>
               var bct = {{bct|tojson|safe}};
               var j = 0;
-              for(i = 0; i < bct.map; i++){
+              for(i = 0; i < bct.map-1; i++){
                 if(j < bct.curr){
                     $(".bct").append("<span class='btn btn-small green black-text'><i class='tiny material-icons'>check_box</i></span>");
                 }else if(j == bct.curr){

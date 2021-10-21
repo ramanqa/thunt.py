@@ -114,11 +114,11 @@ def next_cid():
 
 route = [
         "c1",
+        "a_video",
+        "crystal_maze",
         "maps",
         "not_a_bot",
-        "a_video",
         "socket_gate",
-        "crystal_maze",
         "treasure"
         ]
 
@@ -154,10 +154,13 @@ def response_a_video():
     return True
 
 def response_socket_gate():
-    zs = request.cookies.get("_zZs")
-    ezs = fernet.decrypt(request.form["socketGateMessage"].encode()).decode()
-    if(zs == ezs):
-        return True
+    try:
+        zs = request.cookies.get("_zZs")
+        ezs = fernet.decrypt(request.form["socketGateMessage"].encode()).decode()
+        if(zs == ezs):
+            return True
+    except Exception as e:
+        print(e)
     return False
 
 def response_crystal_maze():
