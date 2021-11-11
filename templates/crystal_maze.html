@@ -39,22 +39,10 @@
       </div>
     </div>
 </div>
+<script src='/static/cm/{{p}}.js'></script>
 <script>
-  var data = [
-        [0,0,0,0,0,0,0,0,0,0,0,0],
-        [0,1,1,1,1,1,1,1,1,1,1,0],
-        [4,2,2,1,2,1,1,1,1,2,1,0],
-        [0,1,2,1,2,2,2,2,2,2,1,0],
-        [0,1,2,2,2,1,1,2,1,1,1,0],
-        [0,1,1,1,1,1,2,2,1,1,1,0],
-        [0,1,1,2,2,2,2,1,1,2,2,2],
-        [0,1,2,2,1,1,1,1,2,2,1,0],
-        [0,1,2,1,1,1,1,1,2,1,1,0],
-        [0,1,2,2,2,2,2,2,2,2,1,0],
-        [0,1,1,1,1,1,1,1,1,1,1,0],
-        [0,0,0,0,0,0,0,0,0,0,0,0]
-      ];
   var direction = "";
+  var end = ""; 
 
   $(document).ready(function(){
       fillMaze(data);
@@ -73,6 +61,7 @@
                       tr += "blue-grey";
                   }else if(cell == 3){
                       tr += "green";
+                      end = ".x" + x + ".y" + y;
                   }else if(cell == 4){
                       tr += "deep-purple";
                   }
@@ -88,8 +77,9 @@
   function right(){
       currentElm = $(".deep-purple")[0];
       newElm = $(".x"+(currentPosX()+1) + ".y" + currentPosY());
-      if(newElm.hasClass("blue-grey")){
+      if(newElm.hasClass("blue-grey") || newElm.hasClass("green")){
           $(newElm).removeClass("blue-grey");
+          $(newElm).removeClass("green");
           $(newElm).addClass("deep-purple");
           $(currentElm).removeClass("deep-purple");
           $(currentElm).addClass("blue-grey");
@@ -99,8 +89,9 @@
   function left(){
       currentElm = $(".deep-purple")[0];
       newElm = $(".x"+(currentPosX()-1) + ".y" + currentPosY());
-      if(newElm.hasClass("blue-grey")){
+      if(newElm.hasClass("blue-grey") || newElm.hasClass("green")){
           $(newElm).removeClass("blue-grey");
+          $(newElm).removeClass("green");
           $(newElm).addClass("deep-purple");
           $(currentElm).removeClass("deep-purple");
           $(currentElm).addClass("blue-grey");
@@ -110,8 +101,9 @@
   function up(){
       currentElm = $(".deep-purple")[0];
       newElm = $(".x"+currentPosX() + ".y" + (currentPosY()-1));
-      if(newElm.hasClass("blue-grey")){
+      if(newElm.hasClass("blue-grey") || newElm.hasClass("green")){
           $(newElm).removeClass("blue-grey");
+          $(newElm).removeClass("green");
           $(newElm).addClass("deep-purple");
           $(currentElm).removeClass("deep-purple");
           $(currentElm).addClass("blue-grey");
@@ -121,8 +113,9 @@
   function down(){
       currentElm = $(".deep-purple")[0];
       newElm = $(".x"+currentPosX() + ".y" + (currentPosY()+1));
-      if(newElm.hasClass("blue-grey")){
+      if(newElm.hasClass("blue-grey") || newElm.hasClass("green")){
           $(newElm).removeClass("blue-grey");
+          $(newElm).removeClass("green");
           $(newElm).addClass("deep-purple");
           $(currentElm).removeClass("deep-purple");
           $(currentElm).addClass("blue-grey");
@@ -144,7 +137,8 @@
 
   document.getElementById("crystalMazeFormSubmit").onclick = function(){
       document.getElementById("crystalMazePath").value = direction;
-      if($(".x11.y6").hasClass("deep-purple")){
+      console.log(end);
+      if($(end).hasClass("deep-purple")){
           document.getElementById("crystalMazeForm").submit();
         }
     }

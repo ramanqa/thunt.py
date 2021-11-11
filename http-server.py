@@ -32,12 +32,13 @@ def home():
 def landing(cid):
     zs = request.cookies.get("_zZs")
     cid_in_request = zs.split(".")[2]
+    p = int(zs.split(".")[1])%10
     b = bct(cid)
     if not validate_request(cid):
         error_response = make_response(render_template('validation-error.html', checkpoint_page_id=cid_in_request, bct={}))
         error_response.status_code = 400
         return error_response
-    return make_response(render_template(cid+".html", cookie=zs, bct=b))
+    return make_response(render_template(cid+".html", cookie=zs, bct=b, p=p))
 
 @app.route("/start")
 def start():
