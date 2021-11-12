@@ -8,7 +8,7 @@
           <div class="row">
             <div class="col s12 left-align">
               <ol>
-                <li>Connect to socket: ws://[domain]:5001</li>
+                <li>Connect to socket: <span id="wsurl">ws://[domain]:5001</span></li>
                 <li>Generate access token by sending message : 
                   <div class="yellow lighten-3" style="margin: 5px; width: 90%;height: 60px;overflow: auto;padding: 5px;font-family: monospace; font-size: 0.8em;"> 
                     {{cookie}}
@@ -31,5 +31,6 @@
     </div>
 </div>
 <script>
+  document.querySelector("span#wsurl").innerText="ws://"+window.location.hostname+":5001";
 </script>
 {% endblock %}
