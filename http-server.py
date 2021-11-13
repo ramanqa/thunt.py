@@ -170,7 +170,7 @@ def response_crystal_maze():
         return False
     if not direction.endswith("r"):
         return False
-    if(len(direction)<33):
+    if(len(direction)<30):
         return False
     return True
 
