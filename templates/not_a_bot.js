@@ -1,6 +1,4 @@
 var captcha = function(){
-    console.log("here");
-    console.log("{{word}}");
     canvasContext = document.getElementById("notABotCanvas").getContext('2d');
     captchaImage = document.getElementById("notABotCaptchaImg");
     canvasContext.font = "30px courier";
